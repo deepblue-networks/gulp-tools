@@ -26,11 +26,29 @@ module.exports = function(config) {
     throw 'Task not have an default name';
   }
 
+  let called = 0;
   const task = function() {
     const taskName = config.name;
+    config.called = called++;
+
+    // init default configuration, only on first call
+    if (config.called < 1) {
+      const package = packages.load();
+      config.package = package;
+      config.props = {};
+
+      if (package.config && package.config[taskName]) {
+        config.props = package.config[taskName];
+      }
+
+      utils.optionalCall(config, 'onSetup');
+    }
+
 
     // display help
     if (env.isHelp) {
+      utils.optionalCall(config, 'onHelp');
+
       return utils.onceCall(
         config.help,
         () => {
@@ -56,6 +74,8 @@ module.exports = function(config) {
 
     // install progress
     if (isInstall) {
+      utils.optionalCall(config, 'onInstall');
+
       if (Array.isArray(config.dependencies)) {
         const dependecies = config.dependencies.join(' ');
 
@@ -70,27 +90,15 @@ module.exports = function(config) {
     }
 
     // run task
-    return Promise.all(
-      [
-        // inject all dependecies
-        resolver.inject(config),
-
-        // setup packages and configuration
-        new Promise(resolve => {
-          const package = packages.load();
-          config.package = package;
-          config.props = {};
-
-          if (package.config && package.config[taskName]) {
-            config.props = package.config[taskName];
-          }
-
-          resolve();
-        }),
-      ],
-    ).then(() => {
+    utils.optionalCall(config, 'onBeforeExecute');
+    return Promise.all([
+      // inject all dependecies
+      resolver.inject(config),
+    ]).then(() => {
+      // execute task
       return config.execute(config);
     }).then(() => {
+      // start watcher if defined
       if (env.isWatch && !config.isWatching) {
         config.isWatching = true;
 
@@ -101,6 +109,8 @@ module.exports = function(config) {
           console.info('start watching by prop', config.props.watch);
           return gulp.watch(config.props.watch, [taskName]);
         }
+
+        utils.optionalCall(config, 'onAfterExecute');
       }
     });
   };

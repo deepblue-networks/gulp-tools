@@ -33,4 +33,26 @@ module.exports = {
       progress.stderr.on('data', reject);
     });
   },
+
+  /**
+   * call function of object if exists
+   * @param handler
+   * @param functionName
+   * @param args
+   */
+  optionalCall (handler, functionName, args = []) {
+    return new Promise((resolve, reject) => {
+      if (handler && typeof handler[functionName] === 'function') {
+        try {
+          const result = handler[functionName].apply(handler, args);
+          return resolve(result);
+        }
+        catch (error) {
+          reject(error);
+        }
+      }
+
+      return resolve();
+    });
+  },
 };
