@@ -7,7 +7,7 @@ module.exports = {
    *
    * @returns {*}
    */
-  onceCall() {
+  onceCall () {
     for (let index = 0, length = arguments.length; index < length; index++) {
       const argument = arguments[index];
       if (typeof argument === 'function') {
@@ -23,8 +23,22 @@ module.exports = {
    *
    * @returns {*|T}
    */
-  getGulpTaskName() {
+  getGulpTaskName () {
     const gulp = require('gulp');
     return gulp.seq.slice(-1)[0];
   },
-}
+
+  /**
+   * execute shell script
+   *
+   * @param command
+   * @returns {Promise}
+   */
+  shell (command) {
+    return new Promise((resolve, reject) => {
+      const progress = exec(command);
+      progress.stdout.on('data', resolve);
+      progress.stderr.on('data', reject);
+    });
+  },
+};
