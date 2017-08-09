@@ -46,8 +46,11 @@ module.exports = function(config) {
     if (isInstall) {
       if (Array.isArray(config.dependencies)) {
         const dependecies = config.dependencies.join(' ');
-        utils.shell(`npm install -S ${dependecies}`).
-          then(() => console.log('All dependencies installed')).
+
+        return utils.shell(`npm install -S ${dependecies}`).
+          then((result) => {
+            console.log(result, 'All dependencies installed')
+          }).
           catch(console.error);
       }
 

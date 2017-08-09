@@ -35,6 +35,8 @@ module.exports = {
    * @returns {Promise}
    */
   shell (command) {
+    const { exec } = require('child_process');
+
     return new Promise((resolve, reject) => {
       const progress = exec(command);
       progress.stdout.on('data', resolve);
