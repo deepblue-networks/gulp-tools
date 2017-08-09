@@ -19,16 +19,6 @@ module.exports = {
   },
 
   /**
-   * return the name of current running gulp task
-   *
-   * @returns {*|T}
-   */
-  getGulpTaskName () {
-    const gulp = require('gulp');
-    return gulp.seq.slice(-1)[0];
-  },
-
-  /**
    * execute shell script
    *
    * @param command
