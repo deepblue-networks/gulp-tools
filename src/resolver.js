@@ -4,12 +4,20 @@
 module.exports = {
 
   /**
-   * @returns {Object}
+   * inject depence
+   *
+   * @param handler
+   * @param callback
+   * @returns {Promise.<TResult>}
    */
   inject(handler, callback) {
-    this.load(handler.dependecies)
+    return this.load(handler.dependencies)
       .then($deps => {
-        callback.apply(handler, $deps);
+        handler.$deps = $deps;
+
+        if (callback) {
+          callback.apply(handler, $deps);
+        }
       });
   },
 

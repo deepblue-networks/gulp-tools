@@ -4,16 +4,12 @@
  * @type {{_package: null, load: (function())}}
  */
 module.exports = {
-  _package: null,
 
   /**
    * @returns {Object}
    */
-  load() {
-    if (!this._package) {
-      this._package = require(process.cwd() + '/package.json');
-    }
-    return this._package;
+  load(file = 'package.json') {
+    return require(process.cwd() + `/${file}`);
   },
 
   /**
