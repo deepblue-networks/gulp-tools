@@ -78,6 +78,10 @@ module.exports = function(config) {
 
       if (Array.isArray(config.dependencies)) {
         const dependecies = config.dependencies.join(' ');
+        console.log(`
+          Try to install packages:
+          ${config.dependencies.join(', ')}
+        `);
 
         return utils.shell(`npm install -S ${dependecies}`).
           then((result) => {
