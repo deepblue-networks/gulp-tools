@@ -10,7 +10,7 @@ function hasFlag(flags) {
 argv.isWatch = hasFlag(['--watch', '-w']);
 argv.isHelp = hasFlag(['--help', '-h']);
 argv.isDebug = true;
-argv.environemnt = 'development';
+argv.environment = process.env.hasOwnProperty('ENVIRONMENT') ? process.env.ENVIRONMENT : 'production';
 argv.hasFlag = hasFlag;
 
 module.exports = argv;

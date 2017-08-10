@@ -1,13 +1,18 @@
 {
   "name": "@deepblue/gulp-tools",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "gulp and build utilities",
   "main": "index.js",
-  "keywords": [],
+  "keywords": [
+    "toolkit",
+    "gulp",
+    "plugin"
+  ],
   "author": "Darius Sobczak<darius.sobczak@db-n.com>",
   "license": "private",
   "private": true,
   "dependencies": {
+    "deep-assign": "^2.0.0",
     "gulp": "^3.9.1",
     "minimist": "^1.2.0"
   }
