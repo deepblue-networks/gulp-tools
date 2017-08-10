@@ -5,6 +5,12 @@ const deepAssign = require('deep-assign');
 const FILE_NAME = 'package';
 const FILE_EXT = '.json';
 
+/**
+ * save loading of json data
+ *
+ * @param file
+ * @returns {{}}
+ */
 function loadFile(file) {
   let data = {};
   if (fs.existsSync(file)) {
@@ -13,7 +19,7 @@ function loadFile(file) {
       data = fileData;
     }
   }
-  return fileData;
+  return data;
 }
 
 /**
@@ -35,9 +41,9 @@ module.exports = {
 
     const cwd = process.cwd();
     // load main file
-    const mainPackage = loadFile(`${cwd}/${FILE_NAME}.${FILE_EXT}`);
+    const mainPackage = loadFile(`${cwd}/${FILE_NAME}${FILE_EXT}`);
     // env file
-    const envPackage = loadFile(`${cwd}/${FILE_NAME}.${environment}.${FILE_EXT}`);
+    const envPackage = loadFile(`${cwd}/${FILE_NAME}.${environment}${FILE_EXT}`);
 
     this.package = deepAssign(mainPackage, envPackage);
     return this.package;
