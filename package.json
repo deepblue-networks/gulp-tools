@@ -1,6 +1,6 @@
 {
   "name": "@deepblue/gulp-tools",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "gulp and build utilities",
   "main": "index.js",
   "keywords": [
