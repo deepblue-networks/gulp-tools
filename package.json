@@ -11,9 +11,15 @@
   "author": "Darius Sobczak<darius.sobczak@db-n.com>",
   "license": "private",
   "private": true,
+  "scripts": {
+    "test": "jasmine"
+  },
   "dependencies": {
     "deep-assign": "^2.0.0",
     "gulp": "^3.9.1",
     "minimist": "^1.2.0"
+  },
+  "devDependencies": {
+    "jasmine": "^2.7.0"
   }
 }
