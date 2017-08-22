@@ -125,12 +125,12 @@ module.exports = function(config) {
    * @param name
    * @param deps
    */
-  task.init = function(name = null, deps = null) {
+  task.init = function(name = null, deps = []) {
     name = name ? name : config.name;
     config.internalName = config.name;
     config.name = name;
 
-    gulp.task(name, this, deps);
+    gulp.task(name, deps, this);
   };
 
   return task;
