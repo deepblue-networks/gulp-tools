@@ -16,6 +16,7 @@ const utils = require('./utils');
 const resolver = require('./resolver');
 const packages = require('./packages');
 const isInstall = env.hasFlag(['--install']);
+const isIgnoreTaskDeps = env.hasFlag(['--ignore-task-deps']);
 
 module.exports = function(config) {
   if (typeof config.execute !== 'function') {
@@ -129,6 +130,9 @@ module.exports = function(config) {
     name = name ? name : config.name;
     config.internalName = config.name;
     config.name = name;
+
+    // optional flag
+    deps = isIgnoreTaskDeps ? [] : deps;
 
     gulp.task(name, deps, this);
   };
