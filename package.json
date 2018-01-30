@@ -9,8 +9,7 @@
     "plugin"
   ],
   "author": "Darius Sobczak<darius.sobczak@db-n.com>",
-  "license": "private",
-  "private": true,
+  "license": "MIT",
   "scripts": {
     "test": "jasmine"
   },
